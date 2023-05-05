@@ -6,29 +6,29 @@ def eh_par(n):
     else:
         return False
 
-def coeficientes(alfa, resto_lm, quociente):
+def coeficientes(alfa, resto_lm, quociente, ab_rm):
     i = len(alfa) - 1
-    y = (alfa[i]*resto_lm[0] - quociente[0])//resto_lm[2]
-    x = (y * resto_lm[1] - 1)//-(resto_lm[0])
+    y = (alfa[i]*ab_rm[0] - quociente[0])//resto_lm[0]
+    x = (y * ab_rm[1] - 1)//-(ab_rm[0])
     return x, y
 
 def metade_restos (resto_l, rn):
     resto_lm = [int(linha) // rn for linha in resto_l]
     return resto_lm
 
-def calcula_alfa(posicao, resto_lm, quociente):
+def calcula_alfa(n, resto_lm, quociente):
     alfa_i = [1]
-    z = posicao - 3 # tirar a e b
 
     # define número de iterações
-    i = z // 2 if eh_par(z) else (z - 1) // 2
-    
+    i = n // 2 if eh_par(n) else (n - 1) // 2
+
     # define valores de k e l
-    k, l = (2, 0) if eh_par(z) else (3, 1)
+    k, l = (2, 0) if eh_par(n) else (3, 1)
 
     linha = 1
     while (linha <= i):
-        q = (alfa_i[linha - 1] * resto_lm[(posicao - 1) - k] - quociente[(posicao - 1) - l]) // resto_lm[(posicao - 1)- l]
+        q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
+        print("PRINT",resto_lm[(n) - k])
         alfa_i.append(q)
         k += 2
         l += 2
@@ -36,8 +36,8 @@ def calcula_alfa(posicao, resto_lm, quociente):
 
     return alfa_i
 
-def verifica (resto_l, a, x, y):
-    c = resto_l[0] * x + resto_l[1] * y
+def verifica (ab, a, x, y):
+    c = ab[0] * x + ab[1] * y
     if (c==a):
         return True
     else:
@@ -45,32 +45,43 @@ def verifica (resto_l, a, x, y):
 
 
 def mdc_extendido(a, b):
+
     resto = 1
-    resto_l = [a, b]
-    quociente = [0, 0]
+    ab = [a, b]
+    resto_l = []
+    quociente = []
     
-    while (resto != 0):
-        resto = a % b
-        resto_l.append(resto)
-        quociente.append(a//b)
-        a, b = b, resto #atualização de valores
- 
-    resto_lm = metade_restos(resto_l, a)
-    posicao = len(resto_lm) - 1
-    alfa = calcula_alfa(posicao, resto_lm, quociente)
-    x, y = coeficientes(alfa, resto_lm, quociente)
+    # verificação nulos
+    if (a == 0 and b == 0): return 0, 0, 0
+    elif (a == 0): return b, 0, 1
+    elif(b == 0): return a, 1, 0
+    elif(a == b): return a, 1, 0
 
-    if (DEBUG):
-        print ("\nTabela de restos: ", resto_l)
-        print("Valores dos quocientes: ", quociente)
-        print("Valor de rn: ", a)
-        print("Após a divisão por rn: ", resto_lm)
-        print("Valores de alfa_i: ", alfa)
-        print(verifica(resto_l, a, x, y), "\n")
+    else:
 
-    return a, x, y
+        while (resto != 0):
+            resto = a % b
+            resto_l.append(resto)
+            quociente.append(a//b)
+            a, b = b, resto # atualização de valores
+
+        resto_lm = metade_restos(resto_l, a)
+        ab_lm = metade_restos(ab, a)
+        pos_rn = resto_l.index(a)
+        alfa = calcula_alfa(pos_rn, resto_lm, quociente)
+        x, y = coeficientes(alfa, resto_lm, quociente, ab_lm)
+
+        if (DEBUG):
+            print ("\nTabela de restos: ", resto_l)
+            print("Valores dos quocientes: ", quociente)
+            print("Valor de rn: ", pos_rn)
+            print("Após a divisão por rn: ", ab_lm, resto_lm)
+            print("Valores de alfa_i: ", alfa)
+            print(verifica(ab, a, x, y), "\n")
+
+        return a, x, y
     
-mdc, x, y = mdc_extendido(239, 151)
+mdc, x, y = mdc_extendido(5, 2)
 print ("MDC :", mdc)
 print("x: ", x)
 print("y: ", y)
