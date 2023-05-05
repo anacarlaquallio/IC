@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 
 def eh_par(n):
     if (n % 2) == 0:
@@ -28,12 +28,10 @@ def calcula_alfa(n, resto_lm, quociente):
     linha = 1
     while (linha <= i):
         q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
-        print("PRINT",resto_lm[(n) - k])
         alfa_i.append(q)
         k += 2
         l += 2
         linha+=1
-
     return alfa_i
 
 def verifica (ab, a, x, y):
@@ -43,7 +41,6 @@ def verifica (ab, a, x, y):
     else:
         return False
 
-
 def mdc_extendido(a, b):
 
     resto = 1
@@ -51,7 +48,7 @@ def mdc_extendido(a, b):
     resto_l = []
     quociente = []
     
-    # verificação nulos
+    # verificação triviais
     if (a == 0 and b == 0): return 0, 0, 0
     elif (a == 0): return b, 0, 1
     elif(b == 0): return a, 1, 0
@@ -81,7 +78,7 @@ def mdc_extendido(a, b):
 
         return a, x, y
     
-mdc, x, y = mdc_extendido(5, 2)
+mdc, x, y = mdc_extendido(987, 123)
 print ("MDC :", mdc)
 print("x: ", x)
 print("y: ", y)
