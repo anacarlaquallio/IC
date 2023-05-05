@@ -1,5 +1,5 @@
 NAOEXISTE = 0
-import euclid_bezout as eb
+import inverso as eb
 
 def inverso (b, d):
     m, x, y = eb.mdc_extendido(b, d)
