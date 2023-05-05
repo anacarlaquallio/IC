@@ -79,7 +79,7 @@ def mdc_extendido(a, b):
 
         return a, x, y
     
-mdc, x, y = mdc_extendido(987, 123)
+mdc, x, y = mdc_extendido(637, 221)
 print ("MDC :", mdc)
 print("x: ", x)
 print("y: ", y)

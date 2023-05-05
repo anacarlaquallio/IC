@@ -15,6 +15,6 @@ def calcula_equacao (a, b, c, d):
 
 print ("Este algoritmo resolve um sistema modular da forma:")
 print ("x ≡ a (mod b)")
-print ("x ≡ c (mod c)")
+print ("x ≡ c (mod d)")
 x, alfa = calcula_equacao(2, 3, 7, 10)
-print("Solução que satisfaz ambas as equações: x ≡", x, "mod (",alfa, ")")
+print("Possível solução que satisfaz ambas as equações: x ≡", x, "mod (",alfa, ")")
