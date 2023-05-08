@@ -12,7 +12,6 @@ def inverso (b, d):
         
 def calcula_equacao (a, b, c, d):
     i, b, d, mdc = inverso(b, d)
-    print (i, b, d)
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
     if (x > gama): x = x % gama
@@ -21,7 +20,6 @@ def calcula_equacao (a, b, c, d):
 print ("Este algoritmo resolve um sistema modular da forma:")
 print ("x ≡ a (mod b)")
 print ("x ≡ c (mod d)")
-#x, alfa = calcula_equacao(5, 6, 19, 20)
-x, alfa = calcula_equacao(2, 3, 7, 10)
-print (x, alfa)
-#print("Possível solução que satisfaz ambas as equações: x ≡", x, "mod (",alfa, ")")
+x, gama = calcula_equacao(5, 6, 19, 20)
+#x, gama = calcula_equacao(2, 3, 7, 10)
+print("Possível solução que satisfaz ambas as equações: x ≡", x, "mod (",gama, ")")
