@@ -26,6 +26,7 @@ def calcula_alfa(n, resto_lm, quociente):
     k, l = (2, 0) if eh_par(n) else (3, 1)
 
     linha = 1
+    # calcula alfa_i
     while (linha <= i):
         q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
         alfa_i.append(q)
@@ -34,9 +35,10 @@ def calcula_alfa(n, resto_lm, quociente):
         linha+=1
     return alfa_i
 
+# verifica se a*x + b*y = mdc(a, b)
 def verifica (ab, a, x, y):
     c = ab[0] * x + ab[1] * y
-    if (c==a):
+    if (c == a):
         return True
     else:
         return False
@@ -79,7 +81,7 @@ def mdc_extendido(a, b):
 
         return a, x, y
     
-mdc, x, y = mdc_extendido(637, 221)
+mdc, x, y = mdc_extendido(3, 10)
 print ("MDC :", mdc)
 print("x: ", x)
 print("y: ", y)
