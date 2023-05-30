@@ -3,7 +3,6 @@ import inverso as iv
 
 def solver_equation(a, b, n):
     mdc, x, y = iv.mdc_extendido(a, n)
-    print(mdc, x, y)
     if ((b % mdc) == 0):
         x0 = (x*(b//mdc)) % n
         i = 0
@@ -13,5 +12,8 @@ def solver_equation(a, b, n):
     else:
         print("Nenhuma solução!")
 
-
-solver_equation(2, 1, 17)
+print("Este algoritmo resolve uma equação da forma: ax ≡ b (mod n)")
+a = int(input("Digite um valor para a: "))
+b = int(input("Digite um valor para b: "))
+n = int(input("Digite um valor para n: "))
+solver_equation(a, b, n)
