@@ -1,7 +1,18 @@
 import inverso as iv
 
+def solver_equation(a: int, b: int, n: int):
+    """
+    Implementação de uma função que resolve uma equação linear modular.
+    
+    Argumentos:
+    - a: número inteiro que multiplica x
+    - b: número inteiro
+    - b: número inteiro (módulo) 
+    
+    Retorna:
+    - Possíveis soluções para a equação ou nenhuma solução.
+    """
 
-def solver_equation(a, b, n):
     mdc, x, y = iv.mdc_extendido(a, n)
     if ((b % mdc) == 0):
         x0 = (x*(b//mdc)) % n
