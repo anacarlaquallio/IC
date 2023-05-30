@@ -43,7 +43,7 @@ def verifica (ab, a, x, y):
     else:
         return False
 
-def mdc_extendido(a, b):
+def mdc_extendido(a: int, b: int):
 
     resto = 1
     ab = [a, b]

@@ -1,6 +1,6 @@
 import inverso as iv
 
-def inverso (b, d):
+def inverso (b: int, d: int):
     mdc, x, y = iv.mdc_extendido(b, d)
     
     if (mdc != 1):
@@ -10,7 +10,7 @@ def inverso (b, d):
     if (x < 0): x = d + x        
     return x, b, d, mdc
         
-def calcula_equacao (a, b, c, d):
+def calcula_equacao (a:int, b:int, c:int, d:int):
     i, b, d, mdc = inverso(b, d)
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
