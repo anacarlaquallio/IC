@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 
 def eh_par(n):
     if (n % 2) == 0:
@@ -81,7 +81,9 @@ def mdc_extendido(a, b):
 
         return a, x, y
     
-mdc, x, y = mdc_extendido(2, 3)
-print ("MDC :", mdc)
-print("x: ", x)
-print("y: ", y)
+a = int(input("Digite um valor para a: "))
+b = int(input("Digite um valor para b: "))
+mdc, x, y = mdc_extendido(a, b)
+print ("mdc(a, b) =", mdc)
+print("x =", x)
+print("y = ", y)
