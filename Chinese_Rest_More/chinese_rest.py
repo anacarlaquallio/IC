@@ -1,12 +1,38 @@
 import inverso as iv
+import numpy as np
+import sys
 
-def novo_x (m, a, b):
+def equation_solver(a:int, b:int, n:int):
+    """
+    Implementação de uma função que resolve uma equação linear modular.
+    
+    Argumentos:
+    - a: número inteiro que multiplica x
+    - b: número inteiro
+    - b: número inteiro (módulo) 
+    
+    Retorna:
+    - Possíveis soluções para a equação ou nenhuma solução.
+    """
+    mdc, x, y = iv.mdc_extendido(a, n)
+    
+    if ((b % mdc) == 0):
+        x0 = (x*(b//mdc)) % n
+        i = 0
+        while (i <= mdc - 1):
+            print("Possível solução para x: ", (x0 + i*(n//mdc)) % n)
+            i += 1
+    else:
+        print("Nenhuma solução!")
+
+def novo_x (m:int, a:int, b:int):
     mdc, i, _ = iv.mdc_extendido(m, b)
     if mdc != 1: return -1
-    if (i < 0): i = b + i        
+    if (i < 0):
+        i = b + i        
     return (a*i) % b
 
-def coprime(num1, num2):
+def coprime(num1:int, num2:int):
     mdc, _, _ = iv.mdc_extendido(num1, num2)
     if mdc != 1:
         return True
@@ -20,27 +46,32 @@ def inverso (b: int, d: int):
         if b % mdc == 0 and d % mdc == 0:
             b = b // mdc
             d = d // mdc
-
         else:
             return 0, 0, 0, -1
     
-    if (x < 0): x = d + x        
+    if (x < 0):
+        x = d + x        
     return x, b, d, mdc
         
 def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
-    if ((coprime(a, b)) or (coprime(c, d))): return 0, 0
-    if (m == 0 or n == 0): return 0, 0
+    if ((coprime(a, b)) or (coprime(c, d))): 
+        return 0, 0
+    if (m == 0 or n == 0):
+        return 0, 0
     
     if (m != 1):
         a = novo_x(m, a, b)
-        if a == -1: return 0, 0
+        if a == -1:
+            return 0, 0
     
     if (n != 1):
         c = novo_x(n, c, d)
-        if c == -1: return 0, 0
+        if c == -1:
+            return 0, 0
 
     i, b, d, mdc = inverso(b, d)
-    if mdc == -1: return 0, 0
+    if mdc == -1:
+        return 0, 0
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
     
@@ -50,17 +81,67 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
         x = gama + x
     return x, gama
 
-print ("Este algoritmo resolve um sistema modular da forma:")
-print ("m*x ≡ a (mod b)")
-print ("n*x ≡ c (mod d)")
-m = int(input("Digite um valor para m: "))
-a = int(input("Digite um valor para a: "))
-b = int(input("Digite um valor para b: "))
-n = int(input("Digite um valor para n: "))
-c = int(input("Digite um valor para c: "))
-d = int(input("Digite um valor para d: "))
-if (b < 0 or d < 0): print("O número que acompanha mod precisa ser positivo!")
-else: 
-    x, gama = calcula_equacao(m, n, a, b, c, d)
-    if x == 0 and gama == 0: print("O sistema não possui solução!")
-    else: print("Possível solução que satisfaz ambas as equações: x ≡", x, "mod (",gama, ")")
+print("Este algoritmo resolve um sistema modular da forma:")
+print("m1*x ≡ a1 (mod b1)")
+print("m2*x ≡ a2 (mod b2)")
+print("...")
+print("mn*x ≡ an (mod bn)\n")
+
+# Solicitar o número de equações
+n = int(input("Digite o número de equações: "))
+
+if n == 1:
+    m = int(input("Digite o coeficiente m da equação: "))
+    a = int(input("Digite o coeficiente a da equação: "))
+    b = int(input("Digite o coeficiente b da equação: "))
+
+    # Chamar a função equation_solver com uma única equação
+    equation_solver(m, a, b)
+
+else:
+    matriz = np.zeros((n, 3))
+    solucoes = np.zeros((n // 2, 3))
+    ultima = np.zeros((1, 3))
+
+    # Preencher a matriz com os coeficientes das equações
+    for i in range(n):
+        m = int(input(f"Digite o coeficiente m da equação {i+1}: "))
+        a = int(input(f"Digite o coeficiente a da equação {i+1}: "))
+        b = int(input(f"Digite o coeficiente b da equação {i+1}: "))
+        if b == 0:
+            print("O número que acompanha mod precisa ser positivo!")
+            sys.exit()
+        else:
+            matriz[i] = [m, a, b]
+            if n % 2 != 0: 
+                ultima[0] = matriz[-1].copy()
+
+    for i in range(0, n, 2):
+        if i+1 < n:
+            eq1 = matriz[i]
+            eq2 = matriz[i+1]
+            m1, a1, b1 = eq1
+            m2, a2, b2 = eq2
+            x, gama = calcula_equacao(m1, m2, a1, b1, a2, b2)
+            solucoes[i // 2] = [1, x, gama]
+            if x == 0 and gama == 0:
+                print("O sistema não possui solução!")
+                sys.exit()
+    
+    if n % 2 != 0: resultado = np.concatenate((solucoes, ultima), axis=0)
+    else: resultado = solucoes 
+    if len(resultado) == 1: print(f'Possível solução que satisfaz as equações: x ≡ {int(x)} mod ({int(gama)})')
+    else:
+        for i in range(0, len(resultado), 2):
+            if i+1 < len(resultado):
+                eq1 = resultado[i]
+                eq2 = resultado[i+1]
+                m1, a1, b1 = eq1
+                m2, a2, b2 = eq2
+                x, gama = calcula_equacao(m1, m2, a1, b1, a2, b2)
+        if len(resultado % 2 != 0): 
+            last_eq = resultado[-1]
+            m_last, a_last, b_last = last_eq
+            x_last, gama_last = calcula_equacao(1, m_last, x, gama, a_last, b_last)
+            print(f'Possível solução que satisfaz as equações: x ≡ {int(x_last)} mod ({int(gama_last)})')
+        else: print(f'Possível solução que satisfaz as equações: x ≡ {int(x)} mod ({int(gama)})')
