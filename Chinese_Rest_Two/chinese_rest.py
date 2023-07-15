@@ -28,7 +28,6 @@ def inverso (b: int, d: int):
     return x, b, d, mdc
         
 def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
-    if ((coprime(a, b)) or (coprime(c, d))): return 0, 0
     if (m == 0 or n == 0): return 0, 0
 
     if (m != 1):
@@ -41,7 +40,7 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
 
     i, b, d, mdc = inverso(b, d)
     if mdc == -1: return 0, 0
-    x = (i * b * (c - a) + a)
+    x = ((i * b * (c - a)) + a)
     gama = b * d * mdc
     
     if (x > gama): 
