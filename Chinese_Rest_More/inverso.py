@@ -48,8 +48,8 @@ def mdc_extendido(a, b):
     
     # verificação triviais
     if (a == 0 and b == 0): return 0, 0, 0
-    elif (a == 0): return b, 0, 1
-    elif(b == 0): return 0, 0, 0
+    if (b == 0 and a != 0): return a, 1, 0
+    elif (a == 0 and b!= 0): return b, 0, 1
     elif(a == b): return a, 1, 0
     elif (a % b == 0): return b, 0, 1
 
