@@ -3,7 +3,7 @@ import numpy as np
 import sys
 
 def equation_solver(a:int, b:int, n:int):
-    mdc, x, y = iv.mdc_extendido(a, n)
+    mdc, x, _ = iv.mdc_extendido(a, n)
     
     if ((b % mdc) == 0):
         x0 = (x*(b//mdc)) % n
@@ -14,12 +14,15 @@ def equation_solver(a:int, b:int, n:int):
     else:
         print("Nenhuma solução!")
 
-def novo_x (m:int, a:int, b:int):
+
+def corte(m:int, a:int, b:int):
     mdc, i, _ = iv.mdc_extendido(m, b)
-    if mdc != 1: return -1
-    if (i < 0):
-        i = b + i        
-    return (a*i) % b
+    if mdc != 1:
+        if (a % mdc == 0):
+            return m//mdc, a//mdc, b//mdc
+        else: return -1, -1, -1
+    else:
+        return (m*i)%b, (a*i)%b, b  
 
 def n_coprime(num1:int, num2:int):
     mdc, _, _ = iv.mdc_extendido(num1, num2)
@@ -44,12 +47,12 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
         return 0, 0
 
     if (m != 1):
-        a = novo_x(m, a, b)
+        m, a, b = corte(m, a, b)
         if a == -1:
             return 0, 0
     
     if (n != 1):
-        c = novo_x(n, c, d)
+        n, c, d = corte(n, c, d)
         if c == -1:
             return 0, 0
 
