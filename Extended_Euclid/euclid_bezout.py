@@ -1,15 +1,14 @@
 DEBUG = False
 
 def eh_par(n):
-    if (n % 2) == 0:
-        return True
-    else:
-        return False
+  return n % 2 == 0
 
-def coeficientes(alfa, resto_lm, quociente, ab_rm):
+def coeficientes(alfa, resto_lm, quociente, ab_rm, n):
     i = len(alfa) - 1
     y = (alfa[i]*ab_rm[0] - quociente[0])//resto_lm[0]
+    #y = (alfa[i]*ab_rm[0]//resto_lm[n] - quociente[0])//(resto_lm[0]//resto_lm[n])
     x = (y * ab_rm[1] - 1)//-(ab_rm[0])
+    #x = (y * ab_rm[1]//resto_lm[n] - 1)//-((ab_rm[0])//resto_lm[n])
     return x, y
 
 def metade_restos (resto_l, rn):
@@ -26,24 +25,23 @@ def calcula_alfa(n, resto_lm, quociente):
     k, l = (2, 0) if eh_par(n) else (3, 1)
 
     linha = 1
-    # calcula alfa_i
     while (linha <= i):
         q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
+        #q = (alfa_i[linha - 1] * resto_lm[n - k] // resto_lm[n] - quociente[n - l]) // (resto_lm[n - l] //resto_lm[n])
         alfa_i.append(q)
         k += 2
         l += 2
         linha+=1
     return alfa_i
 
-# verifica se a*x + b*y = mdc(a, b)
 def verifica (ab, a, x, y):
     c = ab[0] * x + ab[1] * y
-    if (c == a):
+    if (c==a):
         return True
     else:
         return False
 
-def mdc_extendido(a: int, b: int):
+def mdc_extendido(a, b):
 
     resto = 1
     ab = [a, b]
@@ -52,8 +50,14 @@ def mdc_extendido(a: int, b: int):
     
     # verificação triviais
     if (a == 0 and b == 0): return 0, 0, 0
-    elif (a == 0): return b, 0, 1
-    elif(b == 0): return 0, 0, 0
+    if (b == 0 and a != 0): 
+        if (a < 0):
+            return a*(-1), -1, 0
+        return a, 1, 0
+    elif (a == 0 and b!= 0): 
+        if (b < 0):
+            return b*(-1), 0, -1
+        return b, 0, 1
     elif(a == b): return a, 1, 0
     elif (a % b == 0): return b, 0, 1
 
@@ -69,7 +73,7 @@ def mdc_extendido(a: int, b: int):
         ab_lm = metade_restos(ab, a)
         pos_rn = resto_l.index(a)
         alfa = calcula_alfa(pos_rn, resto_lm, quociente)
-        x, y = coeficientes(alfa, resto_lm, quociente, ab_lm)
+        x, y = coeficientes(alfa, resto_lm, quociente, ab_lm, pos_rn)
 
         if (DEBUG):
             print ("\nTabela de restos: ", resto_l)
@@ -78,12 +82,12 @@ def mdc_extendido(a: int, b: int):
             print("Após a divisão por rn: ", ab_lm, resto_lm)
             print("Valores de alfa_i: ", alfa)
             print(verifica(ab, a, x, y), "\n")
-
+            
         return a, x, y
-    
-a = int(input("Digite um valor para a: "))
-b = int(input("Digite um valor para b: "))
+
+a = int(input("Digite o valor de a: "))
+b = int(input("Digite o valor de b: "))
 mdc, x, y = mdc_extendido(a, b)
-print ("mdc(a, b) =", mdc)
-print("x =", x)
-print("y = ", y)
+print ("MDC :", mdc)
+print("x: ", x)
+print("y: ", y)
