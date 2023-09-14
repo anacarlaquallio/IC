@@ -1,6 +1,10 @@
+import os
+import time
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 
+# Iniciar a medição do tempo
+inicio = time.perf_counter()
 # Gerar um par de chaves RSA: e = 65537 e k = 2048
 private_key = rsa.generate_private_key(
     public_exponent=65537, key_size=2048)
@@ -8,12 +12,11 @@ private_key = rsa.generate_private_key(
 # Obter a chave pública a partir da chave privada
 public_key = private_key.public_key()
 
-# Mensagem para cifrar
-message = b"RSA encryption!"
+# Tamanho limite 190 bytes
+message = os.urandom(190)
+#message = b"My message"
 
 # Cifrar a mensagem com a chave pública
-#OAEP inclui uma função de máscara de geração (MGF1) e usa um algoritmo de hash (SHA-256 neste caso) 
-# para garantir a segurança do processo de cifragem
 ciphertext = public_key.encrypt(
     message,
     padding.OAEP(
@@ -22,6 +25,12 @@ ciphertext = public_key.encrypt(
         label=None
     )
 )
+
+# Encerrar a medição do tempo
+fim = time.perf_counter()
+
+# Calcular o tempo decorrido
+tempo_decorrido = fim - inicio
 
 #ciphertext = public_key.encrypt(
 #    message,
@@ -57,5 +66,6 @@ public_pem = public_key.public_bytes(
 # Exibir as chaves e a mensagem original
 print("Chave privada:\n", private_pem.decode())
 print("\nChave pública:\n", public_pem.decode())
-print("Mensagem original:", message.decode())
-print("Mensagem decifrada:", plaintext.decode())
+print("\nMensagem original (hexadecimal):\n", message.hex())
+print("\nMensagem decifrada (hexadecimal):\n", plaintext.hex())
+print(f"Tempo de criptografia: {tempo_decorrido} segundos")
