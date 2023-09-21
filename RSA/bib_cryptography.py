@@ -13,7 +13,7 @@ private_key = rsa.generate_private_key(
 public_key = private_key.public_key()
 
 # Tamanho limite 190 bytes
-message = os.urandom(190)
+message = os.urandom(190) #limite porque ainda vai fazer padding
 #message = b"My message"
 
 # Cifrar a mensagem com a chave pública
