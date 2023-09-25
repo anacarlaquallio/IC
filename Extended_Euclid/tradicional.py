@@ -5,6 +5,15 @@ def euclidean_extended(a, b):
         d, x, y = euclidean_extended(b, a % b)
         return d, y, x - (a // b) * y
 
+def extended_gcd_iterative(a, b):
+    x0, x1, y0, y1 = 1, 0, 0, 1
+
+    while b != 0:
+        q, a, b = a // b, b, a % b
+        x0, x1 = x1, x0 - q * x1
+        y0, y1 = y1, y0 - q * y1
+    return a, x0, y0
+
 def modulo_inverse(a, m):
     d, x, y = euclidean_extended(a, m)
     if d != 1:
@@ -12,9 +21,7 @@ def modulo_inverse(a, m):
     else:
         return x % m
 
-# Exemplo de uso
-a = 3  # Congruência
-m = 5  # Módulo
+a = int(input("Diigte o valor de a: "))
+b = int(input("Digite o valor de b: "))
 
-inverse = modulo_inverse(a, m)
-print(f"O inverso multiplicativo de {a} (módulo {m}) é: {inverse}")
+print(extended_gcd_iterative(a,b))
