@@ -15,13 +15,13 @@ def extended_gcd_iterative(a, b):
     return a, x0, y0
 
 def modulo_inverse(a, m):
-    d, x, y = euclidean_extended(a, m)
+    d, x, y = extended_gcd_iterative(a, m)
     if d != 1:
         raise ValueError("O inverso multiplicativo não existe.")
     else:
         return x % m
 
-a = int(input("Diigte o valor de a: "))
+a = int(input("Digite o valor de a: "))
 b = int(input("Digite o valor de b: "))
 
-print(extended_gcd_iterative(a,b))
+print(modulo_inverse(a,b))
