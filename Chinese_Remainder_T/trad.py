@@ -20,7 +20,7 @@ def verifica(x: list, a: list, b:list):
                 print("O sistema não possui solução!")
                 sys.exit()
             a[i] = (a[i] * j) % b[i]  
-    print(chinese_remainder(a, b))
+    return chinese_remainder(a, b)
                 
 def extended_gcd_iterative(a:int, b:int):
     x0, x1, y0, y1 = 1, 0, 0, 1
@@ -49,22 +49,16 @@ def chinese_remainder(a:list, b:list):
                 temp_produto *= b[j]
         M.append(temp_produto)
     
-    print(M)
-
-    M_barra = []
-    for i in range(n2):
-        M_barra.append(M[i] % b[i])
-    print(M_barra)
-
+    M_barra = [M[i] % b[i] for i in range(n2)]
+ 
     M_inverso = []
     for i in range(n2):
-        i = modulo_inverse(M_barra[i], b[i])
-        if i == -1: 
+        j = modulo_inverse(M_barra[i], b[i])
+        if j == -1: 
             print("O sistema não possui solução!")
             sys.exit()
         else:
-            M_inverso.append(i)
-    print(M_inverso)    
+            M_inverso.append(j)
 
     produto = []
     soma = 0
@@ -97,4 +91,5 @@ else:
         a.append(int(input(f"Digite o coeficiente a da equação {i+1}: ")))
         b.append(int(input(f"Digite o coeficiente b da equação {i+1}: ")))
 
-    verifica(m, a, b)
+    result, mod = verifica(m, a, b)
+    print(f"Solução: {result} (mod {mod})")
