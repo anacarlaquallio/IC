@@ -32,7 +32,7 @@ def extended_gcd_iterative(a:int, b:int):
     return a, x0, y0
 
 def modulo_inverse(a:int, m:int):
-    d, x, y = extended_gcd_iterative(a, m)
+    d, x, _ = extended_gcd_iterative(a, m)
     if d != 1:
         return -1
     else:
