@@ -26,10 +26,7 @@ def corte(m:int, a:int, b:int):
 
 def n_coprime(num1:int, num2:int):
     mdc, _, _ = iv.mdc_extendido(num1, num2)
-    if mdc != 1:
-        return True
-    else:
-        return False
+    return (mdc != 1)
 
 def inverso (b: int, d: int):
     mdc, x, _ = iv.mdc_extendido(b, d)

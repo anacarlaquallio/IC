@@ -1,8 +1,5 @@
 def eh_par(n):
-    if (n % 2) == 0:
-        return True
-    else:
-        return False
+  return n % 2 == 0
 
 def coeficientes(alfa, resto_lm, quociente, ab_rm):
     i = len(alfa) - 1
