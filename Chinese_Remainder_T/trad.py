@@ -1,8 +1,9 @@
+import numpy as np
 import sys
 
 def equation_solver(a:int, b:int, n:int):
     mdc, x, _ = extended_gcd_iterative(a, n)
-    
+
     if ((b % mdc) == 0):
         x0 = (x*(b//mdc)) % n
         i = 0
@@ -12,7 +13,7 @@ def equation_solver(a:int, b:int, n:int):
     else:
         print("Nenhuma solução!")
 
-def verifica(x: list, a: list, b:list):
+def verifica(x: np.ndarray, a: np.ndarray, b:np.ndarray):
     for i in range(len(x)):
         if x[i] != 1:
             j = modulo_inverse(x[i], b[i])
@@ -21,7 +22,7 @@ def verifica(x: list, a: list, b:list):
                 sys.exit()
             a[i] = (a[i] * j) % b[i]  
     return chinese_remainder(a, b)
-                
+
 def extended_gcd_iterative(a:int, b:int):
     x0, x1, y0, y1 = 1, 0, 0, 1
 
@@ -38,33 +39,35 @@ def modulo_inverse(a:int, m:int):
     else:
         return x % m
 
-def chinese_remainder(a:list, b:list):
+def chinese_remainder(a:np.ndarray, b:np.ndarray):
+    
     n2 = len(b)
-    M = []
+    M = np.zeros(n2, dtype=int)
+    M_barra = np.zeros(n2, dtype=int)
+    M_inverso = np.zeros(n2, dtype=int)
+    produto = np.zeros(n2, dtype=int)
 
     for i in range(n2):
         temp_produto = 1
         for j in range(n2):
             if i != j:  # Evite multiplicar a linha atual
                 temp_produto *= b[j]
-        M.append(temp_produto)
+        M[i] = temp_produto
     
     M_barra = [M[i] % b[i] for i in range(n2)]
  
-    M_inverso = []
     for i in range(n2):
         j = modulo_inverse(M_barra[i], b[i])
         if j == -1: 
             print("O sistema não possui solução!")
             sys.exit()
         else:
-            M_inverso.append(j)
+            M_inverso[i] = j
 
-    produto = []
     soma = 0
     produto_mod = 1
     for i in range(n2):
-        produto.append(a[i] * M[i] * M_inverso[i])
+        produto[i] = a[i] * M[i] * M_inverso[i]
         soma += produto[i]
         produto_mod *= b[i]
     
@@ -83,13 +86,13 @@ if n == 1:
     b = int(input("Digite o coeficiente b da equação: "))
     equation_solver(m, a, b)
 else:
-    m = []
-    a = []
-    b = []
+    m = np.zeros(n, dtype=int)
+    a = np.zeros(n, dtype=int)
+    b = np.zeros(n, dtype=int)
     for i in range(n):
-        m.append(int(input(f"Digite o coeficiente x da equação {i+1}: ")))
-        a.append(int(input(f"Digite o coeficiente a da equação {i+1}: ")))
-        b.append(int(input(f"Digite o coeficiente b da equação {i+1}: ")))
+        m[i]= int(input(f"Digite o coeficiente x da equação {i+1}: "))
+        a[i] = int(input(f"Digite o coeficiente a da equação {i+1}: "))
+        b[i] = int(input(f"Digite o coeficiente b da equação {i+1}: "))
 
     result, mod = verifica(m, a, b)
     print(f"Solução: {result} (mod {mod})")
