@@ -1,6 +1,7 @@
 import inverso as iv
 import numpy as np
 import sys
+from decimal import Decimal
 
 def equation_solver(a:int, b:int, n:int):
     mdc, x, _ = iv.mdc_extendido(a, n)
@@ -59,12 +60,11 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
     i, b, d, mdc = inverso(b, d)
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
-    
-    if (x > gama): 
-        return x % gama, gama
+
     while (x < 0):
         x = gama + x
-    return x, gama
+
+    return x % gama, gama
 
 print("Este algoritmo resolve um sistema modular da forma:")
 print("m1*x ≡ a1 (mod b1)")
@@ -84,9 +84,9 @@ if n == 1:
     equation_solver(m, a, b)
 
 else:
-    matriz = np.zeros((n, 3))
-    solucoes = np.zeros((n // 2, 3))
-    ultima = np.zeros((1, 3))
+    matriz = np.zeros((n, 3), dtype=Decimal)
+    solucoes = np.zeros((n // 2, 3), dtype=Decimal)
+    ultima = np.zeros((1, 3), dtype=Decimal)
     auxiliar = []
 
     # Preencher a matriz com os coeficientes das equações
