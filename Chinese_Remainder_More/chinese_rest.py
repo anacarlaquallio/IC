@@ -25,12 +25,9 @@ def corte(m:int, a:int, b:int):
     else:
         return (m*i)%b, (a*i)%b, b  
 
-def n_coprime(num1:int, num2:int):
+def coprime(num1:int, num2:int):
     mdc, _, _ = iv.mdc_extendido(num1, num2)
-    if mdc != 1:
-        return True
-    else:
-        return False
+    return (mdc==1)
 
 def inverso (b: int, d: int):
     mdc, x, _ = iv.mdc_extendido(b, d)
@@ -61,7 +58,7 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
 
-    while (x < 0):
+    if x < 0:
         x = gama + x
 
     return x % gama, gama
@@ -87,7 +84,8 @@ else:
     matriz = np.zeros((n, 3), dtype=Decimal)
     solucoes = np.zeros((n // 2, 3), dtype=Decimal)
     ultima = np.zeros((1, 3), dtype=Decimal)
-    auxiliar = []
+    mi = []
+    ai = []
 
     # Preencher a matriz com os coeficientes das equações
     for i in range(n):
@@ -99,9 +97,18 @@ else:
             sys.exit()
         else:
             matriz[i] = [m, a, b]
+            mi.append(b)
+            ai.append(a)
             if n % 2 != 0: 
                 ultima[0] = matriz[-1].copy()
     
+    for i in range(len(mi)):
+        for j in range(len(mi)):
+            if i != j:
+                is_coprime = coprime(mi[i], mi[j])
+                if not is_coprime:
+                    print("O sistema não possui solução!")
+                    sys.exit()
     i = 0
     while i+1 < n:
         eq1 = matriz[i]
@@ -131,7 +138,6 @@ else:
                     sys.exit()
                 new_resultado.append([1, x, gama])
             else:
-                # Resta apenas uma solução parcial, adiciona diretamente no novo resultado
                 new_resultado.append(resultado[i])
             i += 2
         resultado = new_resultado.copy()
