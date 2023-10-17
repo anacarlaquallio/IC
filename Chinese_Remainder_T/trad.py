@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+from decimal import Decimal
 
 def equation_solver(a:int, b:int, n:int):
     mdc, x, _ = extended_gcd_iterative(a, n)
@@ -42,10 +43,10 @@ def modulo_inverse(a:int, m:int):
 def chinese_remainder(a:np.ndarray, b:np.ndarray):
     
     n2 = len(b)
-    M = np.zeros(n2, dtype=int)
-    M_barra = np.zeros(n2, dtype=int)
-    M_inverso = np.zeros(n2, dtype=int)
-    produto = np.zeros(n2, dtype=int)
+    M = np.zeros(n2, dtype=Decimal)
+    M_barra = np.zeros(n2, dtype=Decimal)
+    M_inverso = np.zeros(n2, dtype=Decimal)
+    produto = np.zeros(n2, dtype=Decimal)
 
     for i in range(n2):
         temp_produto = 1
@@ -86,9 +87,9 @@ if n == 1:
     b = int(input("Digite o coeficiente b da equação: "))
     equation_solver(m, a, b)
 else:
-    m = np.zeros(n, dtype=int)
-    a = np.zeros(n, dtype=int)
-    b = np.zeros(n, dtype=int)
+    m = np.zeros(n, dtype=Decimal)
+    a = np.zeros(n, dtype=Decimal)
+    b = np.zeros(n, dtype=Decimal)
     for i in range(n):
         m[i]= int(input(f"Digite o coeficiente x da equação {i+1}: "))
         a[i] = int(input(f"Digite o coeficiente a da equação {i+1}: "))
