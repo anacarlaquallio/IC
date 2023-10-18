@@ -84,8 +84,7 @@ else:
     matriz = np.zeros((n, 3), dtype=Decimal)
     solucoes = np.zeros((n // 2, 3), dtype=Decimal)
     ultima = np.zeros((1, 3), dtype=Decimal)
-    mi = []
-    ai = []
+    bi = np.zeros((n), dtype=Decimal)
 
     # Preencher a matriz com os coeficientes das equações
     for i in range(n):
@@ -97,15 +96,14 @@ else:
             sys.exit()
         else:
             matriz[i] = [m, a, b]
-            mi.append(b)
-            ai.append(a)
+            bi[i] = b
             if n % 2 != 0: 
                 ultima[0] = matriz[-1].copy()
     
-    for i in range(len(mi)):
-        for j in range(len(mi)):
+    for i in range(len(bi)):
+        for j in range(len(bi)):
             if i != j:
-                is_coprime = coprime(mi[i], mi[j])
+                is_coprime = coprime(bi[i], bi[j])
                 if not is_coprime:
                     print("O sistema não possui solução!")
                     sys.exit()
@@ -123,7 +121,10 @@ else:
         i +=2
     if n % 2 != 0: resultado = np.concatenate((solucoes, ultima), axis=0)
     else: resultado = solucoes
+    soma1=0
+    soma2=0
     while len(resultado) > 1:
+        print("Tamanho resultado: ", len(resultado))
         new_resultado = []
         i = 0
         while i < len(resultado):
@@ -139,8 +140,12 @@ else:
                 new_resultado.append([1, x, gama])
             else:
                 new_resultado.append(resultado[i])
+            soma1+=1
             i += 2
+        soma2+=1
         resultado = new_resultado.copy()
 
     # Imprime resultado final
     print(f'Possível solução que satisfaz as equações: x ≡ {int(resultado[0][1])} mod ({int(resultado[0][2])})') 
+    print("quantidade de vezes laço externo executou: ", soma2)
+    print("quantidade de vezes laço interno executou: ", soma1)
