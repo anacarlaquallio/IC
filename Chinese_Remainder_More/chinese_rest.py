@@ -56,9 +56,8 @@ def calcula_equacao (m:int, n:int, a:int, b:int, c:int, d:int):
 
     i, b, d, mdc = inverso(b, d)
     if mdc != 1:
-        if not((c-a)%mdc == 0):
-            print("O sistema não possui solução!")
-            sys.exit()
+        if not((c-a)%mdc == 0): 
+            return 0, 0
 
     x = (i * b * (c - a) + a)
     gama = b * d * mdc
