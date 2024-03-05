@@ -1,23 +1,33 @@
-# Código genérico para separar um número em duas partes, dado um índice j
+import sys
+
 def separar_numero(n, j):
     n_str = str(n)
-    b = int(n_str[:-j])
-    z = int(n_str[-j:])
-    return b, z
+    if j < len(n_str):
+        b = int(n_str[:-j])
+        z = int(n_str[-j:])
+        return b, z
+    else: 
+        print("\nErro: Valor inválido para o particionamento")
+        sys.exit()
 
-# Exemplo de uso
-n = 11661
-d = 13
-m_d = 17
+print ("Conjectura d | n se e somente se d | n'")
+print("Esse programa consiste em encontrar n'\n")
+n = int(input("Digite o valor de n: "))
+d = int(input("Digite o valor de d: "))
+m_d = int(input("Digite um valor m(d) para cálculo de múltiplo: "))
+k = int(input("Digite o valor para o particionamento de n: "))
+j = int(input("Digite o valor para o particionamento de m(d): "))
+
+if (n % d != 0):
+        print("\nErro: d não divide. Esse é um requisito")
+        sys.exit()
+
+if (j % k != 0):
+    print("\nErro: os particionamentos devem ser múltiplos entre si")
+    sys.exit()
+
 n_d = d * m_d
-
-k = 4
 b, z = separar_numero(n, k)
-
-#print(f"Para n = {n} e k = {k}, temos b = {b} e z = {z}")
-
-j = 2
-
 a, u = separar_numero(n_d, j)    
 i = k // j
 
@@ -27,10 +37,10 @@ if i % 2 == 0:
 else: 
     n_l = b * (u**i) - (a**i)*z
 
-print(n_l)
+print("\nValor de n' encontrado: ", n_l)
 
 if (n_l % d == 0):
-    print("Deu certo")
+    print("Logo, d | n'")
 
 else:
-    print("Contra exemplo")
+    print("Encontrou-se um contra exemplo para a conjectura")
