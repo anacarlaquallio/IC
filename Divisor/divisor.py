@@ -14,7 +14,7 @@ print ("Conjectura d | n se e somente se d | n'")
 print("Esse programa consiste em encontrar n'\n")
 n = int(input("Digite o valor de n: "))
 d = int(input("Digite o valor de d: "))
-m_d = int(input("Digite um valor m(d) para cálculo de múltiplo: "))
+m_d = int(input("Digite um múltiplo qualquer de d: "))
 k = int(input("Digite o valor para o particionamento de n: "))
 j = int(input("Digite o valor para o particionamento de m(d): "))
 
@@ -22,13 +22,19 @@ if (n % d != 0):
         print("\nErro: d não divide. Esse é um requisito")
         sys.exit()
 
-if (j % k != 0):
+if (k % j != 0):
     print("\nErro: os particionamentos devem ser múltiplos entre si")
     sys.exit()
 
-n_d = d * m_d
+if (m_d % d != 0):
+    print("\nErro: não foi inserido um múltiplo de d")
+    sys.exit()
+
 b, z = separar_numero(n, k)
-a, u = separar_numero(n_d, j)    
+a, u = separar_numero(m_d, j)
+if (b == 0 or z == 0 or a == 0 or u == 0):
+    print("\nErro: As partes b, z, a e u não podem ser nulas")
+    sys.exit()
 i = k // j
 
 if i % 2 == 0:
