@@ -32,7 +32,7 @@ def draw_triangular_balls(n):
     ax.set_ylim(-num_rows * np.sqrt(3) / 2 - 1, 1)
     ax.set_aspect('equal')
     ax.axis('off')
-    plt.title('Bolinhas equivalentes')
+    plt.title('Representação gráfica número triangular')
     plt.show()
 
 # Exemplo de uso:
