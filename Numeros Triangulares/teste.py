@@ -1,21 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# def is_triangular(num):
-#     if (num < 0):
-#             return False
-
-#     sum, n = 0, 1
-#     while(sum <= num):
-#         sum = sum + n
-#         if (sum == num):
-#                 return True
-#         n += 1
-#     return False
-
 def is_triangular(num):
-    n = int(np.sqrt(2 * num))
-    return n * (n + 1) // 2 == num
+    if (num < 0):
+            return False
+
+    sum, n = 0, 1
+    while(sum <= num):
+         sum = sum + n
+         if (sum == num):
+               return True
+         n += 1
+    return False
 
 
 def draw_triangular_balls(n):
