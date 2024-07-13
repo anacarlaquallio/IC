@@ -20,7 +20,7 @@ Com o intuito de divulgar os assuntos estudados neste projeto de pesquisa e os c
   - **Números Triangulares:** Esta pasta possui um exemplo de código que verifica se um número é triangular e devolve a forma ilustrativa desse número.
   - **Resíduos Quadráticos:** Esta pasta contém uma abordagem para testar se um número é resíduo quadrático em relação a um número primo.
   - **RSA:** Esta pasta apresenta implementações do algoritmo criptográfico RSA com as bibliotecas Cryptography e Pycryptodome do Python.
-  - **Teorema Chinês do Resto:** Possui uma nova abordagem para o Teorema Chinês do Resto, considerando sistemas com módulos não coprimos. O resumo foi publicado nos anais da (XI Bienal de Matemática)[https://sbm.org.br/xi-bienal/].
+  - **Teorema Chinês do Resto:** Possui uma nova abordagem para o Teorema Chinês do Resto, considerando sistemas com módulos não coprimos. O resumo foi publicado nos anais da [XI Bienal de Matemática](https://sbm.org.br/xi-bienal/).
   - **Teste de Primos:** Apresenta um teste de conjectura para a verificação de números primos.
   - **Totiente de Euler:** Implementação da Função Totiente de Euler.
 
