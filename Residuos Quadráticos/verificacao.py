@@ -10,7 +10,21 @@ def raiz_inteira(a):
     sqrt_a = math.sqrt(a)
     return sqrt_a.is_integer()
 
+def quadrado_perfeito(a):
+    if a < 0:
+        return False
+    sqrt_a = math.isqrt(a)
+    return sqrt_a * sqrt_a == a
+
+def check_quadrado_perfeito (a, p):
+    if a < p:
+        if quadrado_perfeito(a):
+            return True
+    return False
+
 def alg_fernando (a: int, p: int):
+    if (check_quadrado_perfeito(a,p)):
+        return True
     m = (p-1)/2
     j = (m**2) % p
     x = a
