@@ -15,7 +15,7 @@ Com o intuito de divulgar os assuntos estudados neste projeto de pesquisa e os c
 
 ## Organização do Repositório
 
-  - **Divisor:** Esta pasta contém um código que testa a conjectura \( d | n \) se e somente se \( d | n' \). Benchmarking do processo de geração das chaves.
+  - **Divisor:** Esta pasta contém um código que testa a conjectura \( d | n \) se e somente se \( d | n' \).
   - **Euclides Estendido:** Esta pasta apresenta uma abordagem para o Algoritmo Estendido de Euclides, em comparação ao método tradicional. O artigo completo foi publicado no [SEI SICITE 2023](https://seisicite.com.br/storage/seisicite-trabalhos-finais/353-9df07ad893fd849ae1089f90ce8fd4fd11bd3853be55ffb5d66162243e8fdb75.pdf).
   - **Números Triangulares:** Esta pasta possui um exemplo de código que verifica se um número é triangular e devolve a forma ilustrativa desse número.
   - **Resíduos Quadráticos:** Esta pasta contém uma abordagem para testar se um número é resíduo quadrático em relação a um número primo.
